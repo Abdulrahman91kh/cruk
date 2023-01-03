@@ -29,6 +29,7 @@
   "dependencies": {
     "@aws-cdk/core": "^1.186.1",
     "@middy/core": "^4.0.9",
+    "constructs": "^10.1.208",
     "dotenv": "^16.0.3",
     "dynamoose": "^3.1.0",
     "pino": "^8.8.0",
