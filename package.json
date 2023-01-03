@@ -5,23 +5,35 @@
     "recruitment-nodejs-test": "bin/recruitment-nodejs-test.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "esbuild src/lambda/handlers/**/*.ts --bundle --platform=node --outdir=dist/lambda/handlers",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.97.0",
+    "@aws-cdk/assert": "^2.59.0",
+    "@types/aws-lambda": "^8.10.109",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
-    "aws-cdk": "1.97.0",
+    "@types/pino": "^7.0.5",
+    "@types/uuid": "^9.0.0",
+    "aws-cdk": "^2.59.0",
+    "aws-cdk-lib": "^2.59.0",
+    "aws-sdk": "^2.1286.0",
+    "esbuild": "^0.16.13",
     "jest": "^26.4.2",
     "ts-jest": "^26.2.0",
     "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/core": "1.97.0",
-    "source-map-support": "^0.5.16"
+    "@aws-cdk/core": "^1.186.1",
+    "@middy/core": "^4.0.9",
+    "constructs": "^10.1.208",
+    "dotenv": "^16.0.3",
+    "dynamoose": "^3.1.0",
+    "pino": "^8.8.0",
+    "source-map-support": "^0.5.16",
+    "uuid": "^9.0.0"
   }
 }
