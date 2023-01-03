@@ -71,3 +71,7 @@ Do it manually, it's a one-time thing
 
 Absolutely! show us your AWS chops
 
+1. `git clone https://github.com/Abdulrahman91kh/cruk.git`
+2. `npm run build`
+3. `npx cdk synth`
+4. `npx cdk deploy`

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
 import { RecruitmentNodejsTestStack } from '../lib/recruitment-nodejs-test-stack';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const app = new cdk.App();
 new RecruitmentNodejsTestStack(app, 'RecruitmentNodejsTestStack', {
@@ -11,7 +13,7 @@ new RecruitmentNodejsTestStack(app, 'RecruitmentNodejsTestStack', {
 
   /* Uncomment the next line to specialize this stack for the AWS Account
    * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+  env: { account: process.env.ACCOUNT_ID, region: process.env.REGION },
 
   /* Uncomment the next line if you know exactly what Account and Region you
    * want to deploy the stack to. */
