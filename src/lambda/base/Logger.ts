@@ -8,7 +8,7 @@ export default class Logger {
     
 	private logger: Pino.Logger;
 	public channel: string;
-    /**
+	/**
      * this class helps to produce more structural helpful logs,
      * that we can query and filter using cloudwatch insights
      * @param pinoInstance as an injected dependency

@@ -9,7 +9,7 @@ export default class EmailerSES {
 	private readonly source: string;
 	private readonly ses: AWS.SES;
 
-    /**
+	/**
      * This class takes email options and instance of aws-ses as dependencies
      * It would format the options, hides the complexity
      * and just give you a nice send funciton to use

@@ -7,7 +7,7 @@ import Logger from "../base/Logger";
 
 export default class DonationsServices {
     
-    /**
+	/**
      * This method inserts a new donation record
      * It would throw a 404 error if the `userId` is missing
      * It would throw a 400 error if the `amount` is mising
@@ -18,20 +18,20 @@ export default class DonationsServices {
      */
 	public static create (data: CreateDonation, logger: Logger) {
 		const { userId, amount } = data;
-        logger.info(`Trying to create a new donation for userId ${userId}`);
+		logger.info(`Trying to create a new donation for userId ${userId}`);
 		if(!userId || userId === "") {
-            logger.warn(`Cannot create a new donation without a userId value`);
+			logger.warn("Cannot create a new donation without a userId value");
 			throw new CustomError(404, "Cannot create a new donation, userId value is missing!", data);
 		}
 		if(!amount ) {
-            logger.warn(`Cannot create a new donation without a donation value`);
+			logger.warn("Cannot create a new donation without a donation value");
 			throw new CustomError(400, "Cannot create a new donation, donation value is missing!", data);
 		}
-        logger.info(`Creating a new donation record...`);
+		logger.info("Creating a new donation record...");
 		return DonationsRepository.create(data);
 	}
     
-    /**
+	/**
      * Send a thanks email to donators who donated more than twice.
      * @param email 
      * @param donationsCount 
@@ -39,17 +39,17 @@ export default class DonationsServices {
      * @returns 
      */
 	public static sendThanks = async (email: string, donationsCount: CountResponse, logger: Logger) => {
-        logger.info(`Entering the thanksSender method`);
+		logger.info("Entering the thanksSender method");
 		if(donationsCount.count <= 2) {
-            logger.info(`No emails would be sent since user's donations are less than 2`);
+			logger.info("No emails would be sent since user's donations are less than 2");
 			return;
 		}
 		if(!email || email === "") {
-            logger.warn(`Cannot send an email to undefined email`);
+			logger.warn("Cannot send an email to undefined email");
 			throw new CustomError(400, "Cannot find donator data by given email!");
 		}
 		const ses = new SES({apiVersion: "2010-12-01"});
-        logger.info(`Perparing to send an email...`);
+		logger.info("Perparing to send an email...");
 		const emailer = new EmailerSES({
 			email: [email],
 			body: "Thanks for your multiple donations",
@@ -57,7 +57,7 @@ export default class DonationsServices {
 			subject: "Thanks for your multiple donations, Hero!",
 			ses
 		});
-        logger.info(`Sending a thanks email...`);
+		logger.info("Sending a thanks email...");
 		/**
          *  This function would throw an error because it is used in sandbox
          *  But if it is requested to be prod, it would work
@@ -66,14 +66,14 @@ export default class DonationsServices {
 
 	};
 
-    /**
+	/**
      * Get the count of donations done by a specific hero
      * @param userId 
      * @param logger 
      * @returns 
      */
 	public static countDonationsByUserId = (userId: string, logger: Logger) => {
-        logger.info(`Trying to get dontaitons for userId: ${userId}}`);
+		logger.info(`Trying to get dontaitons for userId: ${userId}}`);
 		return DonationsRepository.countDonationsByUserId(userId);
 	};
 

@@ -24,22 +24,22 @@ export const response = (): middy.MiddlewareObj<LambdaEvent, APIGatewayProxyResu
 			};
 			return;
 		}
-        const { event, context } = request;
+		const { event, context } = request;
 		if(error instanceof CustomError) {
-            event.logger.error(
-                error.message,
-                [context.functionName],
-                JSON.stringify(error)
-            );
-            request.response = {
-                statusCode: error.code,
-                body: JSON.stringify({message: "Internal Server Error!"})
-            };
-        }
+			event.logger.error(
+				error.message,
+				[context.functionName],
+				JSON.stringify(error)
+			);
+			request.response = {
+				statusCode: error.code,
+				body: JSON.stringify({message: "Internal Server Error!"})
+			};
+		}
 		event.logger.error(
 			error,
 			[context.functionName],
-            JSON.stringify(error)
+			JSON.stringify(error)
 		);
 		request.response = {
 			statusCode: 500,

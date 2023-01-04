@@ -1,6 +1,6 @@
 
 export default class CustomError extends Error {
-    /**
+	/**
      * This error would introduce more capability to help debuging issues
      * @param code status code
      * @param errorMessage body of a text message

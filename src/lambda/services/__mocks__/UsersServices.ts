@@ -1,5 +1,5 @@
 export default {
-    create: jest.fn(),
-    getUserByEmail: jest.fn(),
-    validateUniqueEmail: jest.fn(),
-}
+	create: jest.fn(),
+	getUserByEmail: jest.fn(),
+	validateUniqueEmail: jest.fn(),
+};

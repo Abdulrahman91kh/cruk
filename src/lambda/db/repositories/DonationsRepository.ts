@@ -3,7 +3,7 @@ import { CreateDonation } from "../../types/donation.types";
 import * as uuid from "uuid";
 
 export default class DonationsRepository {
-    /**
+	/**
      * Inserting a new donation entry in the donation dynamodb table
      * @param { data } userId the hero who donated
      * @param { data } amount the donation amount
@@ -16,7 +16,7 @@ export default class DonationsRepository {
 		});
 	}
 
-    /**
+	/**
      * Getting donations count by userId
      * @param userId 
      * @returns Promise<CountResponse>

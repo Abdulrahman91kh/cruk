@@ -3,7 +3,7 @@ import * as uuid from "uuid";
 
 export default class UsersRepository {
 
-    /**
+	/**
      * Subscribe a new user, email douplication is not accepted
      * @param email 
      * @returns 
@@ -15,7 +15,7 @@ export default class UsersRepository {
 		});
 	}
 
-    /**
+	/**
      * Finding user data by user's email
      * @param email 
      * @returns 

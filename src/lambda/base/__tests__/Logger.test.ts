@@ -2,10 +2,10 @@ import Logger from "../Logger";
 import * as Pino from "pino";
 
 const mockPino = {
-    info: jest.fn(),
-    warn: jest.fn(),
-    error: jest.fn(),
-    debug: jest.fn(),
+	info: jest.fn(),
+	warn: jest.fn(),
+	error: jest.fn(),
+	debug: jest.fn(),
 };
 
 describe("Testing Logger Base Class", () => {

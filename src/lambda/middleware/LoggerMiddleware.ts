@@ -12,7 +12,7 @@ export const LoggerMiddleware = (): middy.MiddlewareObj<LambdaEvent, APIGatewayP
   
 	const before: middy.MiddlewareFn<LambdaEvent, APIGatewayProxyResult> =  (request: Request): void => {
 		const { context } = request;
-        const logger = pino({});
+		const logger = pino({});
 		const lambdaLogger = new Logger(logger);
 		lambdaLogger.init(context);
 		request.event.logger = lambdaLogger;
