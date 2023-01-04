@@ -9,15 +9,18 @@ import {
 } from 'aws-cdk-lib';
 import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
 import path = require('path');
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 export class RecruitmentNodejsTestStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // SNS Subscription topic
-    const topic = new sns.Topic(this, 'donation-thanks', {
-        displayName: 'Multiple Donations Thanks',
-        topicName: 'donationThanks'
-    });
+    // const topic = new sns.Topic(this, 'donation-thanks', {
+    //     displayName: 'Multiple Donations Thanks',
+    //     topicName: 'donationThanks'
+    // });
 
     // Donation Dynamo Table
     const donationsTable = new dynamodb.Table(this, 'donations', {
@@ -55,6 +58,7 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
         environment: {
             DONATION_TABLE: donationsTable.tableName,
             USERS_TABLE: usersTable.tableName,
+            SES_SOURCE_EMAIL: process.env.SES_SOURCE_EMAIL || 'no-reply@cruk.com'
             // SNS_TOPIC_ARN: topic.topicArn
         }
     });
@@ -74,7 +78,7 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
         environment: {
             DONATION_TABLE: donationsTable.tableName,
             USERS_TABLE: usersTable.tableName,
-            SNS_TOPIC_ARN: topic.topicArn
+            // SNS_TOPIC_ARN: topic.topicArn
         }
     });
     
@@ -94,6 +98,6 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
       // Premissions        
       donationsTable.grantFullAccess(inserDonationHandler);
       usersTable.grantFullAccess(subscribeTopicHandler);
-      topic.grantPublish(inserDonationHandler);
+    //   topic.grantPublish(inserDonationHandler);
   }
 }
