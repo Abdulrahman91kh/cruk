@@ -110,6 +110,7 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
       // Premissions        
       donationsTable.grantFullAccess(inserDonationHandler);
       usersTable.grantFullAccess(subscribeTopicHandler);
+      usersTable.grantFullAccess(inserDonationHandler);
        /**
          * If we are needed to use it keep it if it's OK to use SES we can delete it
          * TAG [DELETE_SNS]

@@ -5,6 +5,11 @@ export interface CreateDonation {
     amount: number;
 }
 
+export interface CountResponse{
+    count: number,
+    queriedCount: number | undefined
+}
+
 export interface Donation extends Item{
     id: string;
     userId: string;

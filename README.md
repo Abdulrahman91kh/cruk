@@ -1,77 +1,104 @@
-# CRUK Node.js Recruitment Assignment
+# Donation Management Service
+  
+## Introduction
 
-**Note - for the Python version of this exercise please click [[HERE](https://github.com/CRUKorg/cruk-backend-assignment/tree/python-version)]**
+- This service handles user donation and user subscriptions. It exposes an API of:
 
-### Functional Requirements
+  -  `donations` Which accepts users donations and thanks those who donate more than twoice.
 
-Build a service in Node.js that can be deployed to AWS which exposes an API and can be consumed from any client. 
+  -  `users` Where users can register thier emails
 
-This service should check how many donations a user has made and send them a special thank you message (e.g. via SNS) if they make 2 or more donations. 
+- I intended to use SNS for the thanks thing, but I changed my mind later to SES to get an actual email sent by only verifing my own email `abdulrahman91kh@gmail.com`. So the API endpoint for `users` serves no purpose in terms of the challenge, but I decided to keep it as it is already implemented, may it helps to show how I thought about its implementation.
 
-### Output Package Requirements
+---
 
-The solution has to be provided as a Github repository including full commit history.
+## Installation & Setup
 
-Please follow the frequent commit practice so that your local repository indicates reasonable milestones of your implementation.
+- First of all, let's grap the challenge code. Use the following git command to clone the project
+    ```
+    git clone https://github.com/Abdulrahman91kh/cruk.git
+    ```
+- We need to create an environment file `.env`, navigate to the project root folder, create a new file with name of `.env`, and copy the next snippet to your file, don't forget to change the variables values with yours
+    ```
+    ACCOUNT_ID=123456789
+    REGION=EU-DIRECTION-X
+    SES_SOURCE_EMAIL="abdulrahman91kh@gmail.com"
+    ```
+- You need to have your AWS ready and your credentials configured, you will need at least a defualt profile to deploy the project to. for more information please visit [AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+- Now you need to navigate to the project folder and install its dependencies, you can do it using:
+    ```
+    npm i
+    ```
+- Then you need to build the source code, you can do it using:
+    ```
+    npm run build
+    ```
+- Now its time to generate the cloudformation template, you can do it using:
+    ```
+    npx cdk synth
+    ```
+- Everything is set and ready to get deployed, you can deploy using:
+    ```
+    npx cdk deploy`
+    ```
 
-The repository MUST contain:
+- **Important NOTE**: if you are doploying this to your sandbox, you will have to [create an identity](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html) first, otherwise, the sending emails function will throw an error and you will get an *internal server error*
+---
 
-- Source code
-    - It should be buildable/viewable.
-    - It must be written in Typescript.
-    - In case you need to use external libraries, please add them.
-- Infrastructure as Code (We use the AWS CDK and encourage you to use this also, but we will accept the use of Cloudformation or Terraform if you feel more comfortable with these technologies). Please refrain from using the Serverless Framework for this task.
-- Adequate tests.
-- Any installation and deployment instructions for apps and components.
-- README file with URL for testing the service online and a brief explanation on the scalability strategy.
+## Live testing
+### Postman Testing
+- If you are willing to test this service using postman, you will find a postman collection and a postman environment variable files within this project files. Navigate to: `<rootDir>/<postman>/`
+- Within the postman collection you will find examples for the expected responses in success and failure cases.
+- If you are going to use any other client please find the following:
+  - The service API URL is:
+	    ```
+	    https://dit4rtt93m.execute-api.eu-west-1.amazonaws.com/prod/
+	    ``` 
+  - The donations Endpoint details: 
+        ```
+	    URL: https://dit4rtt93m.execute-api.eu-west-1.amazonaws.com/prod/donations
+        Method: POST
+        Body: {
+            "email": "example@email.com",
+            "amount": 123
+        }
+	    ```
+    Where the `email` indicates to the donator email, and the amount is the donation in £ (numeric value only)
+  - the users Endpoint is: 
+        ```
+	    URL: https://dit4rtt93m.execute-api.eu-west-1.amazonaws.com/prod/users
+        Method: POST
+        Body: {
+            "email": "example@email.com"
+        }
+	    ```
+    Where email is the subscriber email.
 
-### Rules
+---
 
-If you do not complete the test please indicate how you would intend to finalise it in the README. 
+### Scalability & Resources
+- Lambda limitation
+- DynamoDB Limitations
+- SES Limitations
 
-The team is looking to see how you approach a problem with a broad spec which could have a number of different solutions and then explaining your approach? Keep the implementation simple, but make sure you have automated tests, logging (structured logs with JSON), and include information in the README about how you'll scale the solution to thousands of users, how you'd approach logging & monitoring at scale so that you can actually debug the system as it increases in complexity.
+---
 
-We are not expecting the solution to be deployed, but we expect you to understand the process and best practices around the deployment process. It’s enough if you could provide to our engineers clear and easy instructions on how to deploy your application.
+### Scalability & Resources
+- Keep structural logs.
+- Keep logs insightfull without any sensitive information.
+- In case of corss lambdas requests we may introduce a `correlationId` to be attached to logs.
+- The `correlationId` would be a unique id that is generated from the first lambda serving a request and passed to the next lambdas.
+- Using `correlationId` in cloudwatch insights page will help to see the request logs going from one resource to another and may be from one service to another.
+- Easier request tracking = faster debuging.
+- For such a simple service like this cloudwatch would be fine to query and filter requests and logs in different levels.
+- If the service is scaled and got more resources into it, we can use `DLQ`s, to monitor `SQS`s and `Eventbridges`. We may need to use a monitoring tools such as `Newrelic`.
 
-### FAQ's
+---
 
-*Any client - what are the clients?*
+### Next improvements
+- Exclude the tests from the build.
+- Using the service name as a prefix to the service resources helps to identify the resource when the system gets more complex.
+- Use a feature flag to turn on and of sending emails (in case of it is causing errors because of the identity thing).
+- Split the stack creation test file into smaller ones to make it easier to read.
+- Rename the users table to donators makes more sense in terms of scalling the service up.
 
-A client is a consumer of the API (e.g. web app, another backend service, a mobile app, etc). In this case "Any client" means for us, the API can and should be implemented independently of who/what is going to consume it.
-
-*Does this sit behind an API Gateway?*
-
-Whilst this is not strictly required, it’s just one of various solutions on AWS for exposing your API
-
-*How is authentication performed?*
-
-We are not looking at the implementation of the authentication in the code challenge.
-
-*Will the API receives a token in the header (JWT with authentication service defined)?*
-
-Not necessarily, as per the answer above the authentication is not required for this task.
-
-*Will only certain roles be able to call the API (eg, AWS IAM Permissions with AWS API Gateway)?*
-
-Again, no authorisation or permissions are expected to be set for the coding challenge. We can discuss these things during the F2F interview.
-
-*Will I need to persist donations data in a database?*
-
-Most candidates have used an in-memory store which saves them time to provision and deploy machines/databases. If you want to use a specific data store we don’t have any objection.
-
-*Is there a standardised/preferred method of logging?*
-
-We don’t expect the coding challenge to be production-ready and ship logs anywhere but having basic error handling is considered a minimum requirement. You will definitely get extra points if you handle and log successfully edge-cases and critical paths (e.g. fatal errors).
-
-*In terms of deploying to AWS, should I include a build pipeline or can that be done manually?*
-
-Do it manually, it's a one-time thing
-
-*Can we implement this using AWS Lambda?*
-
-Absolutely! show us your AWS chops
-
-1. `git clone https://github.com/Abdulrahman91kh/cruk.git`
-2. `npm run build`
-3. `npx cdk synth`
-4. `npx cdk deploy`

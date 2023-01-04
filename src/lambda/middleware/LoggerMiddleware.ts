@@ -1,7 +1,8 @@
 import Logger  from "../base/Logger";
-import middy from "@middy/core";
+import middy, { Request } from "@middy/core";
 import { APIGatewayProxyResult } from "aws-lambda";
 import { LambdaEvent } from "../types/Lambda.types";
+import pino from "pino";
 
 /**
  * Middleware responsible for adding a logger instance to an event.
@@ -9,9 +10,10 @@ import { LambdaEvent } from "../types/Lambda.types";
  */
 export const LoggerMiddleware = (): middy.MiddlewareObj<LambdaEvent, APIGatewayProxyResult> => {
   
-	const before: middy.MiddlewareFn<LambdaEvent, APIGatewayProxyResult> =  (request): void => {
+	const before: middy.MiddlewareFn<LambdaEvent, APIGatewayProxyResult> =  (request: Request): void => {
 		const { context } = request;
-		const lambdaLogger = new Logger({});
+        const logger = pino({});
+		const lambdaLogger = new Logger(logger);
 		lambdaLogger.init(context);
 		request.event.logger = lambdaLogger;
 	};

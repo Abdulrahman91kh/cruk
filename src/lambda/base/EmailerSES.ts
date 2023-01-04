@@ -9,6 +9,17 @@ export default class EmailerSES {
 	private readonly source: string;
 	private readonly ses: AWS.SES;
 
+    /**
+     * This class takes email options and instance of aws-ses as dependencies
+     * It would format the options, hides the complexity
+     * and just give you a nice send funciton to use
+     * @param {mailObject} email needs to be an array of strings of destinations
+     * @param {mailObject} subject email subject
+     * @param {mailObject} body your message
+     * @param {mailObject} ses instance of aws ses
+     * @param {mailObject} source this one is optional, needs to be a verified email
+     *  or using a verified domain
+     */
 	constructor(mailObject: contstructorArgsSES) {
 		({
 			email: this.emails,
@@ -18,7 +29,7 @@ export default class EmailerSES {
 		} = mailObject);
 		this.source = mailObject.source || "no-reply@cruk.com";
 	}
-
+    
 	public send() {
 		const emailTemplate: AWS.SES.SendEmailRequest = this._generateEmailTemplate();
 		return this.ses.sendEmail(emailTemplate).promise();

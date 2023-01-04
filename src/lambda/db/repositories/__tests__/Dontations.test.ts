@@ -30,7 +30,7 @@ describe("Testing Donations Repository Class", () => {
 		DonationsModel.query = jest.fn().mockImplementation(() => ({
 			eq: mockEqFn
 		}));
-		await DontaionRepository.findDonationsByUserId(mockUserId);
+		await DontaionRepository.countDonationsByUserId(mockUserId);
 		expect(DonationsModel.query).toBeCalledWith("userId");
 		expect(mockEqFn).toBeCalledWith("1");
 		expect(mockUsingFn).toBeCalledWith("userIdIndex");
