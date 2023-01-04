@@ -9,3 +9,6 @@ cdk.out
 
 # ENV
 .env
+
+# Mac
+.DS_Store
