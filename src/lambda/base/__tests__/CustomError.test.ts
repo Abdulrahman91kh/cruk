@@ -1,6 +1,6 @@
 import CustomError from "../CustomError";
 
-describe("Testing Custom Error Class", () => {
+describe("Testing Custom Error Base Class", () => {
 
 	it("Should have initiate code, message and data", () => {
 		const mockErrorCode = 400;

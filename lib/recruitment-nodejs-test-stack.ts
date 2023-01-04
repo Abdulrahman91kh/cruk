@@ -23,7 +23,8 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
     const donationsTable = new dynamodb.Table(this, 'donations', {
         partitionKey: {
             name: 'id', type: dynamodb.AttributeType.STRING,
-        }
+        },
+        tableName: "donations"
     });
     // We will need to query donations by userId
     donationsTable.addGlobalSecondaryIndex({
@@ -35,7 +36,8 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
     const usersTable = new dynamodb.Table(this, 'users', {
         partitionKey: {
             name: 'id', type: dynamodb.AttributeType.STRING,
-        }
+        },
+        tableName: "users"
     });
     // We will need to query users by user email
     usersTable.addGlobalSecondaryIndex({
