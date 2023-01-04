@@ -16,6 +16,10 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    /**
+     * If we are needed to use it keep it if it's OK to use SES we can delete it
+     * TAG [DELETE_SNS]
+     */
     // SNS Subscription topic
     // const topic = new sns.Topic(this, 'donation-thanks', {
     //     displayName: 'Multiple Donations Thanks',
@@ -59,6 +63,10 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
             DONATION_TABLE: donationsTable.tableName,
             USERS_TABLE: usersTable.tableName,
             SES_SOURCE_EMAIL: process.env.SES_SOURCE_EMAIL || 'no-reply@cruk.com'
+             /**
+             * If we are needed to use it keep it if it's OK to use SES we can delete it
+             * TAG [DELETE_SNS]
+             */
             // SNS_TOPIC_ARN: topic.topicArn
         }
     });
@@ -78,6 +86,10 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
         environment: {
             DONATION_TABLE: donationsTable.tableName,
             USERS_TABLE: usersTable.tableName,
+             /**
+             * If we are needed to use it keep it if it's OK to use SES we can delete it
+             * TAG [DELETE_SNS]
+             */
             // SNS_TOPIC_ARN: topic.topicArn
         }
     });
@@ -98,6 +110,10 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
       // Premissions        
       donationsTable.grantFullAccess(inserDonationHandler);
       usersTable.grantFullAccess(subscribeTopicHandler);
+       /**
+         * If we are needed to use it keep it if it's OK to use SES we can delete it
+         * TAG [DELETE_SNS]
+         */
     //   topic.grantPublish(inserDonationHandler);
   }
 }
