@@ -17,10 +17,10 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
     super(scope, id, props);
 
     // SNS Subscription topic
-    const topic = new sns.Topic(this, 'donation-thanks', {
-        displayName: 'Multiple Donations Thanks',
-        topicName: 'donationThanks'
-    });
+    // const topic = new sns.Topic(this, 'donation-thanks', {
+    //     displayName: 'Multiple Donations Thanks',
+    //     topicName: 'donationThanks'
+    // });
 
     // Donation Dynamo Table
     const donationsTable = new dynamodb.Table(this, 'donations', {
@@ -78,7 +78,7 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
         environment: {
             DONATION_TABLE: donationsTable.tableName,
             USERS_TABLE: usersTable.tableName,
-            SNS_TOPIC_ARN: topic.topicArn
+            // SNS_TOPIC_ARN: topic.topicArn
         }
     });
     
@@ -98,6 +98,6 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
       // Premissions        
       donationsTable.grantFullAccess(inserDonationHandler);
       usersTable.grantFullAccess(subscribeTopicHandler);
-      topic.grantPublish(inserDonationHandler);
+    //   topic.grantPublish(inserDonationHandler);
   }
 }
