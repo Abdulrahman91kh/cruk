@@ -16,7 +16,7 @@ jest.mock("pino", () => ({
 	})(args)
 }));
 
-describe("Testing Logger Class", () => {
+describe("Testing Logger Base Class", () => {
 	//Mocks
 	const mockPinoOptions = {};
 	const mockContext = {
