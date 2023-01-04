@@ -1,4 +1,4 @@
-import DonationsModel from "../model/Donations";
+import DonationsModel from "../model/DonationsModel";
 import { CreateDonation } from "../../types/donation.types";
 import * as uuid from "uuid";
 

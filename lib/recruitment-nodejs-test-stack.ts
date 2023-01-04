@@ -9,6 +9,9 @@ import {
 } from 'aws-cdk-lib';
 import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
 import path = require('path');
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 export class RecruitmentNodejsTestStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -55,6 +58,7 @@ export class RecruitmentNodejsTestStack extends cdk.Stack {
         environment: {
             DONATION_TABLE: donationsTable.tableName,
             USERS_TABLE: usersTable.tableName,
+            SES_SOURCE_EMAIL: process.env.SES_SOURCE_EMAIL || 'no-reply@cruk.com'
             // SNS_TOPIC_ARN: topic.topicArn
         }
     });

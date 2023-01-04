@@ -1,10 +1,25 @@
 import DonationsServices from "../DonationsServices";
-import DonationsRepository from "../../db/repositories/Donations";
+import DonationsRepository from "../../db/repositories/DonationsRepository";
 import CustomError from "../../base/CustomError";
+import EmailerSES from "../../base/EmailerSES";
 
-jest.mock("../../db/repositories/Donations");
+jest.mock("../../db/repositories/DonationsRepository");
+jest.mock("../../base/EmailerSES");
+
+const mockSendEmail = jest.fn();
+
+jest.mock("aws-sdk", () => {
+	return {
+		SES: jest.fn().mockImplementation(() => {
+			return { sendEmail: mockSendEmail };
+		})
+	};
+});
 
 describe("Testing DonationServices Class", () => {
+	beforeEach(() => {
+		jest.resetAllMocks();
+	});
 	describe("Testing create method", () => {
 		it("Should call the create repo metho successfully", () => {
 			const mockDonationData = { userId: "1", amount: 99 };
@@ -43,8 +58,32 @@ describe("Testing DonationServices Class", () => {
 		});
 	});
 
-	// describe("Testing sendThanks", () => {
+	describe("Testing sendThanks", () => {
+		it("Should return undefined and should not send the thanks email", async () => {
+			const mockEmail = "";
+			const res = await DonationsServices.sendThanks(mockEmail, []);
+			expect(res).toBe(undefined);
+			expect(mockSendEmail).not.toBeCalled();
+		});
 
-	// });
+		it("Should throw an error, missing the email", () => {
+			const mockEmail = undefined;
+			expect(
+				DonationsServices.sendThanks(mockEmail as any, [1,2,3 ] as any)
+			).rejects.toThrowError(
+				new CustomError(
+					400,
+					"Cannot find donator data by given email!",
+				)
+			);
+		});
+
+		it("Should return undefined and send the thanks email", async () => {
+			const mockEmail = "email";
+			const temp = EmailerSES as any;
+			const res = await DonationsServices.sendThanks(mockEmail, [1,2,3] as any);
+			expect(res).toBe(undefined);
+		});
+	});
 
 });

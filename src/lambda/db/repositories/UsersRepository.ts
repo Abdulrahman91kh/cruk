@@ -1,4 +1,4 @@
-import usersModel from "../model/Users";
+import usersModel from "../model/UsersModel";
 import * as uuid from "uuid";
 
 export default class UsersRepository {

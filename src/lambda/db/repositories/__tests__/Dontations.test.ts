@@ -1,8 +1,8 @@
-import DontaionRepository from "../Donations";
-import DonationsModel from "../../model/Donations";
+import DontaionRepository from "../DonationsRepository";
+import DonationsModel from "../../model/DonationsModel";
 import * as uuid from "uuid";
 
-jest.mock("../../model/Donations");
+jest.mock("../../model/DonationsModel");
 jest.mock("uuid");
 
 describe("Testing Donations Repository Class", () => {
