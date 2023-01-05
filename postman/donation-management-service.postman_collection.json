@@ -10,7 +10,7 @@
 			"name": "donations",
 			"item": [
 				{
-					"name": "Insert donation",
+					"name": "add donation",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -194,7 +194,7 @@
 			"name": "users",
 			"item": [
 				{
-					"name": "Insert User",
+					"name": "create User",
 					"request": {
 						"method": "POST",
 						"header": [],

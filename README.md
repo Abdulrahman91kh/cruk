@@ -86,9 +86,11 @@
 ---
 
 ### Scalability & Resources
-- Lambda limitation
-- DynamoDB Limitations
-- SES Limitations
+- This application is implemented using scalable technologies and resilience layered code, so when thinking about scalability and handling thousands of users, we would be limited with AWS resources limitations as following:
+- Lambda limitation: Each of our API's endpoints is depending on just one lambda, when thinking scalability we should keep eyes on the number of concurrent lambdas happenning, the **default limitation of conccurent running lambdas is:** 1,000 / Region. For more info please see [this link](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html)
+- DynamoDB Limitations: DynamoDB by default is scalable, it's limitations will not affect this service with its current state (maximum item size and items per query). However, it is a good practice to set Read/Write capacity limits, to control the DynamoDB charges. for more info please see [this link](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html)
+- SES Limitations: SES by default is pretty limited in terms of having thousands of users needed to recieve emails. It's just simple to get it live and running on my sandbox, but it is **by defualt limited to: 250 sending email request / 24 hours**, and also has a **sending rate limitation to: 1 email/ 1 second**. For more info please see [this link](https://docs.aws.amazon.com/ses/latest/dg/quotas.html).
+- **Important Note**: All the previously mentioned limits (AKA quotas) can be increased by sending an increase request to AWS. For more info please see [this link](https://docs.aws.amazon.com/servicequotas/latest/userguide/request-quota-increase.html)
 
 ---
 
