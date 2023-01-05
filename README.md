@@ -18,17 +18,18 @@
     ```
     git clone https://github.com/Abdulrahman91kh/cruk.git
     ```
+- Now you need to navigate to the project folder and install its dependencies, you can do it using: 
+    ```
+    cd cruk && npm i
+    ```
+    *Note* if you are using powershell please use the equivelant commands `(cd cruk) -and (npm i)`
+    we need to just navigate to the project root directory and install the dependencies.
+- You need to have your AWS ready and your credentials configured, you will need at least a defualt profile to deploy the project to. for more information please visit [AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
 - We need to create an environment file `.env`, navigate to the project root folder, create a new file with name of `.env`, and copy the next snippet to your file, don't forget to change the variables values with yours
     ```
     ACCOUNT_ID=123456789
     REGION=EU-DIRECTION-X
     SES_SOURCE_EMAIL="abdulrahman91kh@gmail.com"
-    ```
-- You need to have your AWS ready and your credentials configured, you will need at least a defualt profile to deploy the project to. for more information please visit [AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
-
-- Now you need to navigate to the project folder and install its dependencies, you can do it using: 
-    ```
-    cd cruk && npm i
     ```
 - Everything is set and ready to get deployed, you can deploy using:
     ```
