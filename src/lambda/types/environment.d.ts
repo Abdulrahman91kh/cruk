@@ -3,6 +3,8 @@ declare global {
     interface ProcessEnv {
         USERS_TABLE: string
         DONATION_TABLE: string
+        ACCOUNT_ID: string
+        REGION: string
     }
   }
 }

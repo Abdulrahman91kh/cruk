@@ -25,54 +25,63 @@
     SES_SOURCE_EMAIL="abdulrahman91kh@gmail.com"
     ```
 - You need to have your AWS ready and your credentials configured, you will need at least a defualt profile to deploy the project to. for more information please visit [AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
-- Now you need to navigate to the project folder and install its dependencies, you can do it using:
+
+- Now you need to navigate to the project folder and install its dependencies, you can do it using: 
     ```
-    npm i
-    ```
-- Then you need to build the source code, you can do it using:
-    ```
-    npm run build
-    ```
-- Now its time to generate the cloudformation template, you can do it using:
-    ```
-    npx cdk synth
+    cd cruk && npm i
     ```
 - Everything is set and ready to get deployed, you can deploy using:
     ```
-    npx cdk deploy
+    npm run deploy
     ```
 
 - **Important NOTE**: if you are doploying this to your sandbox, you will have to [create an identity](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html) first, otherwise, the sending emails function will throw an error and you will get an *internal server error*
+
 ---
+
+## <details>
+<summary>Extra commands</summary>
+  - To run unit testing use `npm test`
+  - To build the ts code into a bundle JS use `npm run build`
+  - To destroy the stack after deployment use `npm run destroy`
+</details>
+
+
 
 ## Live testing
 ### Postman Testing
 - If you are willing to test this service using postman, you will find a postman collection and a postman environment variable files within this project files. Navigate to: `<rootDir>/<postman>/`
 - Within the postman collection you will find examples for the expected responses in success and failure cases.
+### Any other client
 - If you are going to use any other client please find the following:
   - The service API URL is:
 	    ```
 	    https://dit4rtt93m.execute-api.eu-west-1.amazonaws.com/prod/
 	    ``` 
+  - the users Endpoint is: 
+        ```json
+        {
+            "URL": "https://dit4rtt93m.execute-api.eu-west-1.amazonaws.com/prod/users",
+            "Method": "POST",
+            "Body": {
+                "email": "example@email.com"
+            }
+        }
+	    ```
+    Where email is the subscriber email.        
   - The donations Endpoint details: 
-        ```
-	    URL: https://dit4rtt93m.execute-api.eu-west-1.amazonaws.com/prod/donations
-        Method: POST
-        Body: {
-            "email": "example@email.com",
-            "amount": 123
+        ```json
+        {
+            "URL": "https://dit4rtt93m.execute-api.eu-west-1.amazonaws.com/prod/donations",
+            "Method": "POST",
+            "Body": {
+                "email": "example@email.com",
+                "amount": 123
+            }
         }
 	    ```
     Where the `email` indicates to the donator email, and the amount is the donation in £ (numeric value only)
-  - the users Endpoint is: 
-        ```
-	    URL: https://dit4rtt93m.execute-api.eu-west-1.amazonaws.com/prod/users
-        Method: POST
-        Body: {
-            "email": "example@email.com"
-        }
-	    ```
-    Where email is the subscriber email.
+  
 
 ---
 

@@ -40,7 +40,7 @@ export default class DonationsServices {
      */
 	public static sendThanks = async (email: string, donationsCount: CountResponse, logger: Logger) => {
 		logger.info("Entering the thanksSender method");
-		if(donationsCount.count <= 2) {
+		if(donationsCount.count < 2) {
 			logger.info("No emails would be sent since user's donations are less than 2");
 			return;
 		}
