@@ -40,12 +40,10 @@
 
 ---
 
-## <details>
-<summary>Extra commands</summary>
+## Extra commands
   - To run unit testing use `npm test`
   - To build the ts code into a bundle JS use `npm run build`
   - To destroy the stack after deployment use `npm run destroy`
-</details>
 
 
 
