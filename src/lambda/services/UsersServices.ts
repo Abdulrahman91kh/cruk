@@ -37,7 +37,7 @@ export default class UserService {
 		logger.info("Trying to validate the uniqueness of email...");
 		if((await UsersRepository.findByEmail(email))[0]) {
 			logger.warn("email is not unique");
-			throw new CustomError(400, "Cannot create new user, Email is already exists!");
+			throw new CustomError(400, "Cannot create new user, Email already exists!");
 		}
 		logger.info("email is unique!");
 		return true;

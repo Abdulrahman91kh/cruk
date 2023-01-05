@@ -39,7 +39,7 @@
     ```
 - Everything is set and ready to get deployed, you can deploy using:
     ```
-    npx cdk deploy`
+    npx cdk deploy
     ```
 
 - **Important NOTE**: if you are doploying this to your sandbox, you will have to [create an identity](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html) first, otherwise, the sending emails function will throw an error and you will get an *internal server error*

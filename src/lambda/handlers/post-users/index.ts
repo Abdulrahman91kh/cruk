@@ -12,7 +12,7 @@ export const insertUser = async (event: LambdaEvent) => {
 	await UsersServices.validateUniqueEmail(email, event.logger);
 	// Create a new user
 	await UsersServices.create(email, event.logger);
-	return { message: "User was inserted Successfully" };
+	return { statusCode: 201, message: "User created successfully" };
 };
 
 export const handler = middy(insertUser)

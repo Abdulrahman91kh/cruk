@@ -6,8 +6,11 @@ import { LambdaEvent } from "../types/Lambda.types";
 export const response = (): middy.MiddlewareObj<LambdaEvent, APIGatewayProxyResult> => {
   
 	const after: middy.MiddlewareFn<LambdaEvent, APIGatewayProxyResult> =  (request: Request): void => {
+		const { response } = request;
+		const statusCode = response.statusCode || 200;
+		delete response.statusCode;
 		request.response = {
-			statusCode: 200,
+			statusCode: statusCode,
 			body: JSON.stringify(request.response),
 		};
 	};

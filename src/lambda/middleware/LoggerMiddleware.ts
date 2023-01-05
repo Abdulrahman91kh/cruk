@@ -11,11 +11,14 @@ import pino from "pino";
 export const LoggerMiddleware = (): middy.MiddlewareObj<LambdaEvent, APIGatewayProxyResult> => {
   
 	const before: middy.MiddlewareFn<LambdaEvent, APIGatewayProxyResult> =  (request: Request): void => {
-		const { context } = request;
 		const logger = pino({});
-		const lambdaLogger = new Logger(logger);
-		lambdaLogger.init(context);
-		request.event.logger = lambdaLogger;
+		injectLogger(request, new Logger(logger));
 	};
 	return { before };
+};
+
+export const injectLogger = (request: Request, logger: Logger) => {
+	const { context } = request;
+	logger.init(context);
+	request.event.logger = logger;
 };
