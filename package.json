@@ -9,6 +9,8 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
+    "deploy": "npm run build && cdk bootstrap && cdk deploy",
+    "destroy": "cdk destory",
     "lint": "eslint \"src/**/*.ts\" ",
     "lint:fix": "eslint \"src/**/*.ts\" --fix"
   },
