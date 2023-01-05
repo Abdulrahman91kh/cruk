@@ -18,17 +18,18 @@
     ```
     git clone https://github.com/Abdulrahman91kh/cruk.git
     ```
+- Now you need to navigate to the project folder and install its dependencies, you can do it using: 
+    ```
+    cd cruk && npm i
+    ```
+    *Note* if you are using powershell please use the equivelant commands `(cd cruk) -and (npm i)`
+    we need to just navigate to the project root directory and install the dependencies.
+- You need to have your AWS ready and your credentials configured, you will need at least a defualt profile to deploy the project to. for more information please visit [AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
 - We need to create an environment file `.env`, navigate to the project root folder, create a new file with name of `.env`, and copy the next snippet to your file, don't forget to change the variables values with yours
     ```
     ACCOUNT_ID=123456789
     REGION=EU-DIRECTION-X
     SES_SOURCE_EMAIL="abdulrahman91kh@gmail.com"
-    ```
-- You need to have your AWS ready and your credentials configured, you will need at least a defualt profile to deploy the project to. for more information please visit [AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
-
-- Now you need to navigate to the project folder and install its dependencies, you can do it using: 
-    ```
-    cd cruk && npm i
     ```
 - Everything is set and ready to get deployed, you can deploy using:
     ```
@@ -85,7 +86,7 @@
 
 ---
 
-### Scalability & Resources
+## Scalability & Resources
 - This application is implemented using scalable technologies and resilience layered code, so when thinking about scalability and handling thousands of users, we would be limited with AWS resources limitations as following:
 - Lambda limitation: Each of our API's endpoints is depending on just one lambda, when thinking scalability we should keep eyes on the number of concurrent lambdas happenning, the **default limitation of conccurent running lambdas is:** 1,000 / Region. For more info please see [this link](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html)
 - DynamoDB Limitations: DynamoDB by default is scalable, it's limitations will not affect this service with its current state (maximum item size and items per query). However, it is a good practice to set Read/Write capacity limits, to control the DynamoDB charges. for more info please see [this link](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html)
@@ -94,7 +95,7 @@
 
 ---
 
-### Scalability & Resources
+## Scalability & Resources
 - Keep structural logs.
 - Keep logs insightfull without any sensitive information.
 - In case of corss lambdas requests we may introduce a `correlationId` to be attached to logs.
@@ -106,7 +107,7 @@
 
 ---
 
-### Next improvements
+## Next improvements
 - Exclude the tests from the build.
 - Using the service name as a prefix to the service resources helps to identify the resource when the system gets more complex.
 - Use a feature flag to turn on and of sending emails (in case of it is causing errors because of the identity thing).
