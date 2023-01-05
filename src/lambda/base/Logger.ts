@@ -8,9 +8,13 @@ export default class Logger {
     
 	private logger: Pino.Logger;
 	public channel: string;
-  
-	constructor (args: Pino.LoggerOptions = {}) {
-		this.logger = Pino.pino(args);
+	/**
+     * this class helps to produce more structural helpful logs,
+     * that we can query and filter using cloudwatch insights
+     * @param pinoInstance as an injected dependency
+     */
+	constructor (pinoInstance: Pino.Logger) {
+		this.logger = pinoInstance;
 	}
 
 	init(context: Context) {

@@ -21,8 +21,11 @@ describe("Testing Donations Repository Class", () => {
 	it("Should test findDonationByUserId, it would call model fns with args", async () => {
 		const mockUserId = "1";
 		const mockExecFn = jest.fn();
-		const mockUsingFn = jest.fn().mockImplementation(() => ({
+		const mockCountFn = jest.fn().mockImplementation(() => ({
 			exec: mockExecFn
+		}));
+		const mockUsingFn = jest.fn().mockImplementation(() => ({
+			count: mockCountFn
 		}));
 		const mockEqFn = jest.fn().mockImplementation(() => ({
 			using: mockUsingFn
@@ -30,10 +33,11 @@ describe("Testing Donations Repository Class", () => {
 		DonationsModel.query = jest.fn().mockImplementation(() => ({
 			eq: mockEqFn
 		}));
-		await DontaionRepository.findDonationsByUserId(mockUserId);
+		await DontaionRepository.countDonationsByUserId(mockUserId);
 		expect(DonationsModel.query).toBeCalledWith("userId");
 		expect(mockEqFn).toBeCalledWith("1");
 		expect(mockUsingFn).toBeCalledWith("userIdIndex");
+		expect(mockCountFn).toBeCalled();
 		expect(mockExecFn).toBeCalled();
 	});
 });

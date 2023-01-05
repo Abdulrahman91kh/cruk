@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "3297f720-a23e-4c8b-b3c9-e171bcfe3031",
+		"name": "donation-management-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11889217"
+	},
+	"item": [
+		{
+			"name": "donations",
+			"item": [
+				{
+					"name": "Insert donation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\",\n    \"amount\": 99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_domain}}/donations",
+							"host": [
+								"{{API_domain}}"
+							],
+							"path": [
+								"donations"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Insert donation | Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{email}}\",\n    \"amount\": 99\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_domain}}/donations",
+									"host": [
+										"{{API_domain}}"
+									],
+									"path": [
+										"donations"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Jan 2023 20:44:19 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "ff7029f5-7d0a-4e8f-8838-cfaa27fccb04"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "ePC9QEvXjoEF9PQ="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-63b5e521-0c3a33ac2309e7fe173f4290;Sampled=0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 fc92265e3899c24180ac56d6646eec4a.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "DUB56-P1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "fJLB26EF9wth6EEh2q2Ah6Hr1pF_RubnxFtG7ztrYyMDBkoQKbV8OQ=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Donation Was inserted Successfully!\"\n}"
+						},
+						{
+							"name": "Insert donation| Error | Missing amount",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{email}}\",\n    \"amount\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_domain}}/donations",
+									"host": [
+										"{{API_domain}}"
+									],
+									"path": [
+										"donations"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "138"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Jan 2023 21:46:32 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "0ea2757f-2502-45de-928f-b4c55769c4a5"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "ePMEtFZ2DoEFbDg="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-63b5f3b7-4af7f9cc0453a6700f8080a8;Sampled=0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Error from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 aba4314739e8021cd58808839bb3d4b8.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "DUB56-P1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "aQFbzpFwdMwzmeufnMXxUYgE0Il9_5NU53zgtBt7B8-iALOeOhUBlQ=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Cannot create a new donation, donation value is missing!\",\n    \"data\": {\n        \"amount\": 0,\n        \"userId\": \"2e728595-8706-4bed-8f5d-ace5c4169d1a\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Insert User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{email}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_domain}}/users",
+							"host": [
+								"{{API_domain}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Insert User | Error | eamil exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{email}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_domain}}/users",
+									"host": [
+										"{{API_domain}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Jan 2023 20:08:52 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "fc0f22df-79c5-4248-82c2-8d6c70c4c7f2"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "eO9xPFCfDoEFQzg="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-63b5dcd4-0582da7e1f67562a7558c84b;Sampled=0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Error from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 3a0be74dc327ae28e2ab5ad182eea85a.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "DUB2-C1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "XctmoBikrTimSOAOQIAIBJeKCu0QmvcKulnN_eMDN-ZbpQyN0chisA=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Cannot create new user, Email is already exists!\",\n    \"data\": {}\n}"
+						},
+						{
+							"name": "Insert User | Sucess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{email}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_domain}}/users",
+									"host": [
+										"{{API_domain}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 04 Jan 2023 21:48:26 GMT"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "30fd4419-b20f-4935-aea0-c745a5f81f11"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "ePMWeG01joEFkPA="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-63b5f429-0ffd00100d9daac47eb63bcc;Sampled=0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 aba4314739e8021cd58808839bb3d4b8.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "DUB56-P1"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "v6q2pk_Lko-mnLBvqgAfdxlbvn-A0Ho65wM0VmY3mAkvH9y5S7Q3TQ=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User was inserted Successfully\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

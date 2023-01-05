@@ -2,9 +2,11 @@ import DonationsServices from "../DonationsServices";
 import DonationsRepository from "../../db/repositories/DonationsRepository";
 import CustomError from "../../base/CustomError";
 import EmailerSES from "../../base/EmailerSES";
+import Logger from "../../base/Logger";
 
 jest.mock("../../db/repositories/DonationsRepository");
 jest.mock("../../base/EmailerSES");
+jest.mock("../../base/Logger");
 
 const mockSendEmail = jest.fn();
 
@@ -20,16 +22,17 @@ describe("Testing DonationServices Class", () => {
 	beforeEach(() => {
 		jest.resetAllMocks();
 	});
+	const logger = new Logger({} as any);
 	describe("Testing create method", () => {
 		it("Should call the create repo metho successfully", () => {
 			const mockDonationData = { userId: "1", amount: 99 };
-			DonationsServices.create(mockDonationData);
+			DonationsServices.create(mockDonationData, logger);
 			expect(DonationsRepository.create).toBeCalledWith(expect.objectContaining({ userId: "1", amount: 99 }));
 		});
 		it("Should throw an 404 error missing the userId", () => {
 			const mockDonationData = { userId: "", amount: 99 };
 			expect(
-				() => DonationsServices.create(mockDonationData)
+				() => DonationsServices.create(mockDonationData, logger)
 			).toThrowError(
 				new CustomError(
 					404,
@@ -44,7 +47,7 @@ describe("Testing DonationServices Class", () => {
 		it("Should throw an 400 error missing amount", () => {
 			const mockDonationData = { userId: "1", amount: 0 };
 			expect(
-				() => DonationsServices.create(mockDonationData)
+				() => DonationsServices.create(mockDonationData, logger)
 			).toThrowError(
 				new CustomError(
 					400,
@@ -61,7 +64,7 @@ describe("Testing DonationServices Class", () => {
 	describe("Testing sendThanks", () => {
 		it("Should return undefined and should not send the thanks email", async () => {
 			const mockEmail = "";
-			const res = await DonationsServices.sendThanks(mockEmail, []);
+			const res = await DonationsServices.sendThanks(mockEmail, {count: 0} as any, logger);
 			expect(res).toBe(undefined);
 			expect(mockSendEmail).not.toBeCalled();
 		});
@@ -69,7 +72,7 @@ describe("Testing DonationServices Class", () => {
 		it("Should throw an error, missing the email", () => {
 			const mockEmail = undefined;
 			expect(
-				DonationsServices.sendThanks(mockEmail as any, [1,2,3 ] as any)
+				DonationsServices.sendThanks(mockEmail as any, {count: 3} as any, logger)
 			).rejects.toThrowError(
 				new CustomError(
 					400,
@@ -80,8 +83,7 @@ describe("Testing DonationServices Class", () => {
 
 		it("Should return undefined and send the thanks email", async () => {
 			const mockEmail = "email";
-			const temp = EmailerSES as any;
-			const res = await DonationsServices.sendThanks(mockEmail, [1,2,3] as any);
+			const res = await DonationsServices.sendThanks(mockEmail, {count: 3} as any, logger);
 			expect(res).toBe(undefined);
 		});
 	});
