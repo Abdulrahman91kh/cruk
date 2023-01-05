@@ -101,4 +101,4 @@
 - Use a feature flag to turn on and of sending emails (in case of it is causing errors because of the identity thing).
 - Split the stack creation test file into smaller ones to make it easier to read.
 - Rename the users table to donators makes more sense in terms of scalling the service up.
-
+- Add request and response validations
