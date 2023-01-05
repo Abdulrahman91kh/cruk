@@ -85,7 +85,7 @@
 
 ---
 
-### Scalability & Resources
+## Scalability & Resources
 - This application is implemented using scalable technologies and resilience layered code, so when thinking about scalability and handling thousands of users, we would be limited with AWS resources limitations as following:
 - Lambda limitation: Each of our API's endpoints is depending on just one lambda, when thinking scalability we should keep eyes on the number of concurrent lambdas happenning, the **default limitation of conccurent running lambdas is:** 1,000 / Region. For more info please see [this link](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html)
 - DynamoDB Limitations: DynamoDB by default is scalable, it's limitations will not affect this service with its current state (maximum item size and items per query). However, it is a good practice to set Read/Write capacity limits, to control the DynamoDB charges. for more info please see [this link](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html)
@@ -94,7 +94,7 @@
 
 ---
 
-### Scalability & Resources
+## Scalability & Resources
 - Keep structural logs.
 - Keep logs insightfull without any sensitive information.
 - In case of corss lambdas requests we may introduce a `correlationId` to be attached to logs.
@@ -106,7 +106,7 @@
 
 ---
 
-### Next improvements
+## Next improvements
 - Exclude the tests from the build.
 - Using the service name as a prefix to the service resources helps to identify the resource when the system gets more complex.
 - Use a feature flag to turn on and of sending emails (in case of it is causing errors because of the identity thing).
